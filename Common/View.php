@@ -9,14 +9,32 @@ class View {
 
   protected $data = [];
 
-  public function __set($k, $v) {
-    $this->data[$k] = $v;
+  /**
+   * __set.
+   *
+   * @param type $name
+   * @param type $value
+   */
+  public function __set($name, $value) {
+    $this->data[$name] = $value;
   }
 
-  public function __get($k) {
-    return $this->data[$k];
+  /**
+   * __get.
+   *
+   * @param type $name
+   * @return type
+   */
+  public function __get($name) {
+    return $this->data[$name];
   }
 
+  /**
+   * Render page.
+   *
+   * @param string $template
+   * @return string
+   */
   public function render($template) {
     foreach ($this->data as $key => $value) {
       $$key = $value;
@@ -29,7 +47,12 @@ class View {
 
     return $contents;
   }
-  
+
+  /**
+   * Display page.
+   *
+   * @param string $template
+   */
   public function display($template) {
     echo $this->render($template);
   }

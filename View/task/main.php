@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!--
-Task.
+Main.
 -->
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Task</title>
+    <title>Main</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
   </head>
@@ -23,7 +23,7 @@ Task.
         </div>
         <div class="collapse navbar-collapse" id="navbarToggler">
           <ul class="nav navbar-nav">
-            <li>
+            <li class="active">
               <a href="/">Home</a>
             </li>
             <li>
@@ -43,17 +43,12 @@ Task.
     </nav>
     <div class="container">
       <div class="row">
-        <div class="col-sm-6">
-          <img class="img-rounded" src='<?php echo $item->image; ?>' alt='<?php echo 'task:' . $item->id; ?>' width="320" height="240"/>
-        </div>
-        <div class="col-sm-6">
-          <p><?php echo $item->name; ?></p>
-          <p><?php echo $item->email; ?></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <p><?php echo $item->text; ?></p>
+        <div class="jumbotron">
+          <h1>HelpDesk</h1>
+          <p>You can create new task.</p>
+          <p>
+            <a href="/create" class="btn btn-lg btn-success">Create task</a>
+          </p>
         </div>
       </div>
     </div>

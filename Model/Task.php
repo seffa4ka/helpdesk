@@ -12,6 +12,7 @@ use App\Common\Model;
  * @property $email
  * @property $text
  * @property $image
+ * @property $status
  */
 class Task 
   extends Model {

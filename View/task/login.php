@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!--
-Task.
+Login.
 -->
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Task</title>
+    <title>Login</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
   </head>
@@ -34,7 +34,7 @@ Task.
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li>
+            <li class="active">
               <a href="/login">Sign in</a>
             </li>
           </ul>
@@ -43,18 +43,7 @@ Task.
     </nav>
     <div class="container">
       <div class="row">
-        <div class="col-sm-6">
-          <img class="img-rounded" src='<?php echo $item->image; ?>' alt='<?php echo 'task:' . $item->id; ?>' width="320" height="240"/>
-        </div>
-        <div class="col-sm-6">
-          <p><?php echo $item->name; ?></p>
-          <p><?php echo $item->email; ?></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <p><?php echo $item->text; ?></p>
-        </div>
+        <div class="col-sm-12"><?php echo 'Login'; ?></div>
       </div>
     </div>
     <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
