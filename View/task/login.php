@@ -35,7 +35,11 @@ Login.
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="active">
+              <?php if (isset($_SESSION['auth'])) { ?>
+              <a href="/logout">Sign out</a>
+              <?php } else { ?>
               <a href="/login">Sign in</a>
+              <?php } ?>
             </li>
           </ul>
         </div>
@@ -43,7 +47,28 @@ Login.
     </nav>
     <div class="container">
       <div class="row">
-        <div class="col-sm-12"><?php echo 'Login'; ?></div>
+        <div class="col-sm-12">
+          <?php
+          if (isset($error)) {
+            echo 
+            '<div class="alert alert-warning fade in">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Warning!</strong> '. $error .
+            '</div>';
+          }
+          ?>
+          <form role="form" action="" method="POST">
+            <div class="form-group">
+              <label for="inputLogin">Login</label>
+              <input required type="text" class="form-control" id="inputLogin" placeholder="Enter Login" name="login">
+            </div>
+            <div class="form-group">
+              <label for="inputPassword">Password</label>
+              <input required type="password" class="form-control" id="inputPassword" placeholder="Enter Password" name="password">
+            </div>
+            <button type="submit" class="btn btn-default">Sign in</button>
+          </form>
+        </div>
       </div>
     </div>
     <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>

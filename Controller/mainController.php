@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Task;
 use App\Common\View;
+use \Imagick;
 
 /**
  * Main Controller.
@@ -47,10 +48,16 @@ class mainController {
           }        
         }
         $uploadfile = $_SERVER['DOCUMENT_ROOT'] . $model->image;
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {
-          //File downloaded.
-        } else {
-          //Error!
+        $tmpFile = $_FILES['image']['tmp_name'];
+        list($width, $height) = getimagesize($tmpFile); 
+
+        if ($width -->= 320 && $height >= 240) {
+          $image = new Imagick($tmpFile);
+          $image->thumbnailImage(320, 240);
+          $image->writeImage($uploadfile);
+        }
+        else {
+          move_uploaded_file($tmpFile, $uploadfile);
         }
       } else {
         $view->item = NULL;
@@ -84,11 +91,22 @@ class mainController {
    */
   public function actionTasks($id) {
     $view = new View();
-    if ($id) {
-      $view->item = 'Task page = ' . $id . '.';
-    } else {
-      $view->item = 'Task page = 1.';
+    if(!$id) {
+      $id = 1;
     }
+    $records = 3;
+    $resId = ($id * $records) - $records;
+    if (!empty($_COOKIE['filter'])) {
+      $order = $_COOKIE['filter'];
+    } else {
+      $order = 'name';
+    }
+    $sum = 3;
+    $model = Task::findPage($resId, $order, $sum);
+    $model2 = Task::count();
+    $view->items = $model;
+    $view->pages = ceil($model2 / $records);
+    $view->thisPage = $id;
     $view->display('task/tasks.php');
   }
 
@@ -96,7 +114,28 @@ class mainController {
    * Login action.
    */
   public function actionLogin() {
-    $view = new View();
-    $view->display('task/login.php');
+    if (isset($_SESSION['auth'])) {
+      header('Location: .');
+    } else {
+      $view = new View();
+      if ($_POST) {
+        $config = parse_ini_file('config/main.ini');
+        if ($_POST['login'] == $config['login'] && $_POST['password'] == $config['authpassword']) {
+          $_SESSION['auth'] = $_POST['login'];
+          header('Location: .');
+        } else {
+          $view->error = 'Invalid login or password.';
+        }
+      }
+      $view->display('task/login.php');
+    }
+  }
+
+  /*
+   * Logout action.
+   */
+  public function actionLogout() {
+    unset($_SESSION['auth']);
+    header('Location: .');
   }
 }

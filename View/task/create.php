@@ -58,7 +58,11 @@ Create.
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
+              <?php if (isset($_SESSION['auth'])) { ?>
+              <a href="/logout">Sign out</a>
+              <?php } else { ?>
               <a href="/login">Sign in</a>
+              <?php } ?>
             </li>
           </ul>
         </div>
@@ -67,7 +71,8 @@ Create.
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <?php if ($item) {
+          <?php 
+          if (isset($item)) {
             echo 
             '<div class="alert alert-success fade in">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -75,28 +80,28 @@ Create.
             '</div>';
           }
           ?>
+          <form role="form" enctype="multipart/form-data" action="" method="POST">
+            <div class="form-group">
+              <label for="inputName">Name</label>
+              <input required type="text" class="form-control" id="inputName" placeholder="Enter Name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="inputEmail">Email</label>
+              <input required type="email" class="form-control" id="inputEmail" placeholder="Enter email" name="email">
+            </div>
+            <div class="form-group">
+              <label for="inputText">Task</label>
+              <textarea required class="form-control" rows="5" id="inputText" name="text"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="inputFile">File input</label>
+              <input required type="file" id="inputFile" name="image" accept="image/jpeg,image/png,image/gif">
+              <p class="help-block">Select an image.</p>
+            </div>
+            <button type="button" class="btn btn-default" id="preview">Preview</button>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
         </div>
-        <form role="form" enctype="multipart/form-data" action="" method="POST">
-          <div class="form-group">
-            <label for="inputName">Name</label>
-            <input required type="text" class="form-control" id="inputName" placeholder="Enter Name" name="name">
-          </div>
-          <div class="form-group">
-            <label for="inputEmail">Email</label>
-            <input required type="email" class="form-control" id="inputEmail" placeholder="Enter email" name="email">
-          </div>
-          <div class="form-group">
-            <label for="inputText">Task</label>
-            <textarea required class="form-control" rows="5" id="inputText" name="text"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="inputFile">File input</label>
-            <input required type="file" id="inputFile" name="image" accept="image/jpeg,image/png,image/gif">
-            <p class="help-block">Select an image.</p>
-          </div>
-          <button type="button" class="btn btn-default" id="preview">Preview</button>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
       </div>
     </div>
     <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>

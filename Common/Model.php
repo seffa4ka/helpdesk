@@ -44,7 +44,7 @@ abstract class Model {
   }
 
   /**
-   * Find one task by id.
+   * Find one data by id.
    *
    * @param int $id
    *  Task.
@@ -58,9 +58,49 @@ abstract class Model {
     if (!empty($res)) {
       return $res[0];
     }
-    throw new ModelExeption('Task not found.');
+    throw new ModelExeption('Data not found.');
   }
 
+  /**
+   * Find page.
+   *
+   * @param int $id
+   * @param string $order
+   * @param int $sum
+   * @return object
+   * @throws ModelExeption
+   */
+  public static function findPage($id, $order, $sum) {
+    $db = new DB();
+    $sql = 'SELECT * FROM ' . static::$table
+            . ' ORDER BY ' . $order
+            . ' LIMIT ' . $id . ', ' . $sum;
+    $res = $db->query($sql, get_called_class());
+    if (!empty($res)) {
+      return $res;
+    }
+    throw new ModelExeption('Data not found.');
+  }
+
+  /**
+   * Count string in data base.
+   *
+   * @return type
+   * @throws ModelExeption
+   */
+  public function count() {
+    $db = new DB();
+    $sql = 'SELECT COUNT(*) FROM ' . static::$table;
+    $res = $db->queryASSOC($sql);
+    if (!empty($res)) {
+      return $res[0]['COUNT(*)'];
+    }
+    throw new ModelExeption('Data not found.');
+  }
+
+  /**
+   * Insert data.
+   */
   protected function insert() {
     $cols = array_keys($this->data);
     $data = [];
@@ -76,6 +116,9 @@ abstract class Model {
     $this->id = $db->lastInsertId();
   }
 
+  /**
+   * Update data.
+   */
   protected function update() {
     $cols = [];
     $data = [];
@@ -93,6 +136,9 @@ abstract class Model {
     $db->execute($sql, $data);
   }
 
+  /**
+   * Save = Insert or Update.
+   */
   public function save() {
     if (!isset($this->id)) {
       $this->insert();

@@ -35,7 +35,11 @@ Main.
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
+              <?php if (isset($_SESSION['auth'])) { ?>
+              <a href="/logout">Sign out</a>
+              <?php } else { ?>
               <a href="/login">Sign in</a>
+              <?php } ?>
             </li>
           </ul>
         </div>
@@ -43,12 +47,14 @@ Main.
     </nav>
     <div class="container">
       <div class="row">
-        <div class="jumbotron">
-          <h1>HelpDesk</h1>
-          <p>You can create new task.</p>
-          <p>
-            <a href="/create" class="btn btn-lg btn-success">Create task</a>
-          </p>
+        <div class="col-sm-12">
+          <div class="jumbotron">
+            <h1>HelpDesk</h1>
+            <p>You can create new task.</p>
+            <p>
+              <a href="/create" class="btn btn-lg btn-success">Create task</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

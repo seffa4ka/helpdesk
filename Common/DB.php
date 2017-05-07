@@ -44,6 +44,19 @@ class DB {
   }
 
   /**
+   * Query in data base.
+   *
+   * @param type $sql
+   * @param type $params
+   * @return type
+   */
+  public function queryASSOC($sql, $params = []) {
+    $sth = $this->dbh->prepare($sql);
+    $sth->execute($params);
+    return $sth->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
    * Execute.
    *
    * @param string $sql

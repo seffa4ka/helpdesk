@@ -35,7 +35,11 @@ Task.
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li>
+              <?php if (isset($_SESSION['auth'])) { ?>
+              <a href="/logout">Sign out</a>
+              <?php } else { ?>
               <a href="/login">Sign in</a>
+              <?php } ?>
             </li>
           </ul>
         </div>
