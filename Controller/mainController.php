@@ -76,10 +76,27 @@ class mainController {
    *  Task.
    */
   public function actionTask($id) {
-    $model = Task::findOne($id);
-    $view = new View();
-    $view->item = $model;
-    $view->display('task/task.php');
+    if (isset($_SESSION['auth'])) {
+      $model = Task::findOne($id);
+      if ($_POST) {
+        $model->text = $_POST['text'];
+        if (isset($_POST['status'])) {
+          $model->status = 1;
+        } else {
+          $model->status = 0;
+        }
+        $model->save();
+        header('Location: /tasks/1');
+      }
+      $view = new View();
+      $view->item = $model;
+      $view->display('task/admin_task.php');      
+    } else {
+      $model = Task::findOne($id);
+      $view = new View();
+      $view->item = $model;
+      $view->display('task/task.php');
+    }
   }
 
   /**
@@ -92,7 +109,7 @@ class mainController {
   public function actionTasks($id) {
     $view = new View();
     if(!$id) {
-      $id = 1;
+      header('Location: /tasks/1');
     }
     $records = 3;
     $resId = ($id * $records) - $records;

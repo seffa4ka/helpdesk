@@ -23,6 +23,7 @@ Create.
             <div class="col-sm-6">
               <p id="previewName"></p>
               <p id="previewEmail"></p>
+              <p>Status: Open</p>
             </div>
           </div>
           <div class="row">

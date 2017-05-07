@@ -46,27 +46,32 @@ Task.
       </div>
     </nav>
     <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <img class="img-rounded" src='<?php echo $item->image; ?>' alt='<?php echo 'task:' . $item->id; ?>' width="320" height="240"/>
+      <form role="form" action="" method="POST">
+        <div class="row">
+          <div class="col-sm-6">
+            <img class="img-rounded" src='<?php echo $item->image; ?>' alt='<?php echo 'task:' . $item->id; ?>' width="320" height="240"/>
+          </div>
+          <div class="col-sm-6">
+            <p><?php echo $item->name; ?></p>
+            <p><?php echo $item->email; ?></p>
+            <p><div class="checkbox">
+              <label><input type="checkbox" <?php 
+               if ($item->status == 1) {
+                 echo 'checked';
+               }
+               ?> value="" name="status">Status</label>
+            </div></p>
+          </div>
         </div>
-        <div class="col-sm-6">
-          <p><?php echo $item->name; ?></p>
-          <p><?php echo $item->email; ?></p>
-          <p><?php
-            if ($item->status == 0) {
-              echo 'Status: Open';
-            } else {
-              echo 'Status: Closed';
-            }
-          ?></p>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <textarea required class="form-control" rows="5" id="inputText" name="text"><?php echo $item->text; ?></textarea>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12">
-          <p><?php echo $item->text; ?></p>
-        </div>
-      </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
     </div>
     <script type="text/javascript" src="/js/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
